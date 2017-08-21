@@ -1,0 +1,33 @@
+development:
+  clients:
+    default:
+      database: task_manager
+      hosts:
+        - localhost:27017
+      options:
+  options:
+
+test:
+  clients:
+    default:
+      database: task_manager_test
+      hosts:
+        - 127.0.0.1:27017
+      options:
+        consistency: :strong
+        max_retries: 1
+        retry_interval: 0
+
+production:
+  clients:
+    default:
+      database: task_manager
+      hosts:
+        - 10.0.7.30:27017
+
+staging:
+  clients:
+    default:
+      database: task_manager
+      hosts:
+        - 127.0.0.1:27017
