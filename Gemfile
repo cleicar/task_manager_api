@@ -10,6 +10,7 @@ ruby '2.4.0'
 gem 'rails', '~> 5.1.1'
 gem 'puma', '~> 3.7'
 gem 'mongoid', '6.0.2'
+gem 'devise'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'
