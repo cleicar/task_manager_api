@@ -22,7 +22,7 @@ RSpec.describe 'Users API', type: :request do
 
     context 'when the user exists' do
       it 'returns the user' do
-        expect(json_response[:_id]['$oid']).to eq(user_id.to_s)
+        expect(json_response[:_id][:$oid]).to eq(user_id.to_s)
       end
 
       it 'returns status code 200' do
@@ -48,7 +48,7 @@ RSpec.describe 'Users API', type: :request do
       let(:user_params){ attributes_for(:user, email: Faker::Internet.email) }
 
       it 'returns json with the created user' do
-        expect(json_response['email']).to eq user_params[:email]
+        expect(json_response[:email]).to eq user_params[:email]
       end
 
       it 'returns status code 201' do
@@ -65,6 +65,7 @@ RSpec.describe 'Users API', type: :request do
 
       it 'returns the json data with the errors' do
         expect(json_response).to have_key(:errors)
+        expect(json_response[:errors][:email].first).to eq 'is invalid'
       end
     end
   end

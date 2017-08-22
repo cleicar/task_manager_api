@@ -1,3 +1,3 @@
 def json_response
-  JSON.parse(response.body).with_indifferent_access
+  JSON.parse(response.body, symbolize_names: true)
 end
