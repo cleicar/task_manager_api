@@ -25,7 +25,7 @@ RSpec.describe 'Users API', type: :request do
         expect(json_response[:_id][:$oid]).to eq(user_id.to_s)
       end
 
-      it 'returns status code 200' do
+      it 'returns status code :ok' do
         expect(response).to have_http_status(:ok)
       end
     end
@@ -33,7 +33,7 @@ RSpec.describe 'Users API', type: :request do
     context 'when the user does not exist' do
       let(:user_id) { 999 }
 
-      it 'returns status coide 404' do
+      it 'returns status code :not_found' do
         expect(response).to have_http_status(:not_found)
       end
     end
@@ -51,8 +51,39 @@ RSpec.describe 'Users API', type: :request do
         expect(json_response[:email]).to eq user_params[:email]
       end
 
-      it 'returns status code 201' do
+      it 'returns status code :created' do
         expect(response).to have_http_status(:created)
+      end
+    end
+
+    context 'when request params are invalid' do
+      let(:user_params){ attributes_for(:user, email: 'invalid_email@') }
+
+      it 'returns status code :unprocessable_entity' do
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'returns the json data with the errors' do
+        expect(json_response).to have_key(:errors)
+        expect(json_response[:errors][:email].first).to eq 'is invalid'
+      end
+    end
+  end
+
+  describe 'PUT /users:id' do
+    before do
+      put "/users/#{user_id}", params: { user: user_params }.to_json, headers: headers
+    end
+
+    context 'when request params are valid' do
+      let(:user_params){ { email: Faker::Internet.email } }
+
+      it 'returns json data for the updated user' do
+        expect(json_response[:email]).to eq user_params[:email]
+      end
+
+      it 'returns status code :ok' do
+        expect(response).to have_http_status(:ok)
       end
     end
 
