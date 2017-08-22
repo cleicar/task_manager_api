@@ -1,14 +1,11 @@
 class Api::V1::UsersController < ApplicationController
-	before_action :set_user, only: [:update]
+	before_action :set_user, only: [:update, :show, :destroy]
 
 	respond_to :json
 
 	# GET /users/:id
 	def show
-		user = User.find(params[:id])
-		respond_with user, status: :ok
-	rescue
-		head :not_found
+		respond_with @user, status: :ok
 	end
 
 	# POST /users
@@ -31,13 +28,19 @@ class Api::V1::UsersController < ApplicationController
     end
 	end
 
+	# DELETE /users/:id
+	def destroy
+		@user.destroy
+		head :no_content
+	end
+
 	private
 	def user_params
 		params.require(:user).permit(:email, :password, :password_confirmation)
 	end
 
 	def set_user
-		@user = User.find(params[:id])
+		@user = User.where(id: params[:id]).first
     head :not_found if @user.blank?
 	end
 end

@@ -100,4 +100,18 @@ RSpec.describe 'Users API', type: :request do
       end
     end
   end
+
+  describe 'DELETE /users:id' do
+    before do
+      delete "/users/#{user_id}", params: {}.to_json, headers: headers
+    end
+
+    it 'returns remove the user' do
+      expect( User.where(id: user_id).first).to be_nil
+    end
+
+    it 'returns status code :no_content' do
+      expect(response).to have_http_status(:no_content)
+    end
+  end
 end
