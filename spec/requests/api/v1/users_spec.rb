@@ -103,7 +103,7 @@ RSpec.describe 'Users API', type: :request do
 
   describe 'DELETE /users:id' do
     before do
-      delete "/users/#{user_id}", params: {}.to_json, headers: headers
+      delete "/users/#{user_id}", params: {}, headers: headers
     end
 
     it 'returns remove the user' do
