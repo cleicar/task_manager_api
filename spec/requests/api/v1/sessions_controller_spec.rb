@@ -26,8 +26,38 @@ RSpec.describe "Sessions API", type: :request do
 	  	end
 
 	  	it 'returns the json data for the users with auth token' do
+	  		user.reload
 	  		expect(json_response[:auth_token]).to eq user.auth_token
 	  	end
 	  end
+
+	  context 'when credentials are incorrect' do
+  		let!(:credentials) { {email: user.email, password: 'invalid_password'} }
+
+	  	it 'returns status code :ok' do
+	  		expect(response).to have_http_status(:unauthorized)
+	  	end
+
+	  	it 'returns the json data for the errors' do
+	  		expect(json_response).to have_key(:errors)
+	  	end
+	  end
+	end
+
+  describe "DELETE /sessions/:id" do
+		let!(:auth_token) { user.auth_token }
+
+		before do
+			delete "/sessions/#{auth_token}", params: {}, headers: headers
+		end
+
+  	it 'returns status code :no_content' do
+  		expect(response).to have_http_status(:no_content)
+  	end
+
+  	it 'changes the user auth token' do
+  		user.reload
+  		expect( User.where(auth_token: auth_token).first).to be_nil
+  	end
 	end
 end
