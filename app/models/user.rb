@@ -39,6 +39,6 @@ class User
   def generate_authentication_token!
     begin
       self.auth_token = Devise.friendly_token
-    end while User.exists?(auth_token: auth_token)
+    end while User.where(auth_token: auth_token).exists?
   end
 end
