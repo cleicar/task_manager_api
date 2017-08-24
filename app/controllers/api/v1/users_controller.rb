@@ -1,5 +1,6 @@
 class Api::V1::UsersController < ApplicationController
 	before_action :set_user, only: [:update, :show, :destroy]
+	#before_action :authenticate_user!, only: [:update, :destroy]
 
 	respond_to :json
 
