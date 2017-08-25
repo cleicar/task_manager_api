@@ -1,6 +1,6 @@
 class Api::V1::UsersController < ApplicationController
 	before_action :set_user, only: [:update, :show, :destroy]
-	before_action :authenticate_user!, only: [:update, :destroy]
+	before_action :authenticate_user!, only: [:show, :update, :destroy]
 
 	respond_to :json
 
@@ -22,10 +22,10 @@ class Api::V1::UsersController < ApplicationController
 
 	# PUT /users/:id
 	def update
-		if current_user.update_attributes(user_params)
-      render json: current_user, status: :ok
+		if @user.update_attributes(user_params)
+      render json: @user, status: :ok
     else
-      render json: { errors: current_user.errors }, status: :unprocessable_entity
+      render json: { errors: @user.errors }, status: :unprocessable_entity
     end
 	end
 
@@ -41,7 +41,7 @@ class Api::V1::UsersController < ApplicationController
 	end
 
 	def set_user
-		@user = User.where(id: params[:id]).first
+		@user = current_user
     head :not_found if @user.blank?
 	end
 end

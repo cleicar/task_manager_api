@@ -5,6 +5,10 @@ module Authentication
 	end
 
 	def authenticate_user!
-		render json: { errors: 'Unathorized Access!' }, status: 401 unless current_user.present?
+		render json: { errors: 'Unathorized Access!' }, status: 401 unless user_logged_in?
+	end
+
+	def user_logged_in?
+		current_user.present?
 	end
 end

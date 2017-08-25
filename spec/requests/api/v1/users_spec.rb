@@ -17,11 +17,11 @@ RSpec.describe 'Users API', type: :request do
   before { host! 'api.taskmanager.dev' }
 
   describe 'GET /users/:id' do
-    before do
-      get "/users/#{user_id}", params: {}, headers: headers
-    end
-
     context 'when the user exists' do
+      before do
+        get "/users/#{user_id}", params: {}, headers: headers
+      end
+
       it 'returns the user' do
         expect(json_response[:_id][:$oid]).to eq(user_id.to_s)
       end
@@ -32,9 +32,11 @@ RSpec.describe 'Users API', type: :request do
     end
 
     context 'when the user does not exist' do
-      let(:user_id) { 999 }
-
       it 'returns status code :not_found' do
+        headers['Authorization'] = 999
+
+        get "/users/#{user_id}", params: {}, headers: headers
+
         expect(response).to have_http_status(:not_found)
       end
     end
@@ -96,7 +98,6 @@ RSpec.describe 'Users API', type: :request do
       end
 
       it 'returns the json data with the errors' do
-        debugger
         expect(json_response).to have_key(:errors)
         expect(json_response[:errors][:email].first).to eq 'is invalid'
       end
