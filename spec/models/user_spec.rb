@@ -19,6 +19,8 @@ RSpec.describe User, type: :model do
 
 		it { expect(user).to be_valid }
 
+		it { is_expected.to have_many(:tasks) }
+
 		describe '#info' do
 			it 'return email, created_at and token' do
 				user.save!

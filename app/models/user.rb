@@ -27,6 +27,9 @@ class User
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
 
+  ## Relationships
+  has_many :tasks
+
   ## Validations
   validates_uniqueness_of :auth_token
 
