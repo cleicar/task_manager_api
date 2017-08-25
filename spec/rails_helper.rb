@@ -13,7 +13,7 @@ Dir[Rails.root.join('spec/supports/**/*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
-  config.include SpecRequestHelper
+  config.include RequestHelperSpec
 
   config.infer_spec_type_from_file_location!
 

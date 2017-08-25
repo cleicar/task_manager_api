@@ -39,7 +39,7 @@ RSpec.describe Authentication do
       end
 
       it 'returns the json data for the errors' do
-        expect(response_json).to have_key(:errors)
+        expect(json_response).to have_key(:errors)
       end
     end
   end

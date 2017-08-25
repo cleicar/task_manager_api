@@ -10,6 +10,7 @@ RSpec.describe 'Users API', type: :request do
     {
       'Accept' => 'application/vnd.taskmanager.v1',
       'Content-Type' => Mime[:json].to_s,
+      'Authorization' => user.auth_token
     }
   end
 
@@ -95,6 +96,7 @@ RSpec.describe 'Users API', type: :request do
       end
 
       it 'returns the json data with the errors' do
+        debugger
         expect(json_response).to have_key(:errors)
         expect(json_response[:errors][:email].first).to eq 'is invalid'
       end
