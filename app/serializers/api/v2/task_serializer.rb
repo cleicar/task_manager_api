@@ -3,12 +3,10 @@ class Api::V2::ArraySerializer < ActiveModel::Serializer
   	:updated_at, :short_description, :is_late
 
   def short_description
-  	debugger
     object.description[0..40]
   end
 
   def is_late
-  	debugger
     Time.current > object.deadline if object.deadline.present?
   end
 
