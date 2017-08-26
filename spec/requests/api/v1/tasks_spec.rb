@@ -65,7 +65,7 @@ RSpec.describe 'Task API' do
       end
 
       it 'assigns the created task to the current user' do
-        expect(json_response[:user_id][:$oid]).to eq user.id.to_s
+        expect(json_response[:user_id]).to eq user.id.to_s
       end
     end
 

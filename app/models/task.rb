@@ -4,7 +4,7 @@ class Task
 
   field :title, type: String
   field :description, type: String
-  field :done, type: Mongoid::Boolean
+  field :done, type: Mongoid::Boolean, default: false
   field :deadline, type: Time
 
   validates_presence_of :title, :user_id

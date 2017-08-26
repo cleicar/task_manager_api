@@ -23,7 +23,7 @@ RSpec.describe 'Users API', type: :request do
       end
 
       it 'returns the user' do
-        expect(json_response[:_id][:$oid]).to eq(user_id.to_s)
+        expect(json_response[:_id]).to eq(user_id.to_s)
       end
 
       it 'returns status code :ok' do
