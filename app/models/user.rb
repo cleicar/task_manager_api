@@ -28,7 +28,7 @@ class User
   field :last_sign_in_ip,    type: String
 
   ## Relationships
-  has_many :tasks
+  has_many :tasks, dependent: :destroy
 
   ## Validations
   validates_uniqueness_of :auth_token

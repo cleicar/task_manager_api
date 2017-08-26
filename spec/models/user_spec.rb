@@ -19,7 +19,7 @@ RSpec.describe User, type: :model do
 
 		it { expect(user).to be_valid }
 
-		it { is_expected.to have_many(:tasks) }
+	  it { is_expected.to have_many(:tasks).with_dependent(:destroy) }
 
 		describe '#info' do
 			it 'return email, created_at and token' do

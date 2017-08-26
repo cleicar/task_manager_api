@@ -1,5 +1,7 @@
 class Api::V1::SessionsController < ApplicationController
 
+	skip_before_action :authenticate_user!
+
 	def create
 		user = User.where(email: sessions_params[:email]).first
 		if user && user.valid_password?(sessions_params[:password])

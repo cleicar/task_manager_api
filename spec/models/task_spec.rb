@@ -17,8 +17,5 @@ RSpec.describe Task, type: :model do
 
 	it { is_expected.to belong_to(:user) }
 
-	it {
-		task.user = user
-		expect(task).to be_valid
-	}
+	it { expect(task).to be_valid }
 end

@@ -37,7 +37,7 @@ RSpec.describe 'Users API', type: :request do
 
         get "/users/#{user_id}", params: {}, headers: headers
 
-        expect(response).to have_http_status(:not_found)
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end
