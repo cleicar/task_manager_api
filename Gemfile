@@ -10,8 +10,7 @@ gem 'puma', '~> 3.7'
 gem 'mongoid', '6.0.2'
 gem 'devise'
 
-gem 'active_model_serializers', '~>0.9.4'
-gem 'mongoid-serializer'
+gem 'active_model_serializers'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'
