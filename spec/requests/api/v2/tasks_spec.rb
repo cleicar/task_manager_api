@@ -16,7 +16,7 @@ RSpec.describe 'Task API' do
 
   describe 'GET /tasks' do
     before do
-      create_list(:task, 5, user_id: user.id)
+      create_list(:task, 5, :user_id => user.id)
 
       get '/tasks', params: {}, headers: headers
     end
@@ -31,7 +31,7 @@ RSpec.describe 'Task API' do
   end
 
   describe 'GET /tasks/:id' do
-    let(:task) { create(:task, user_id: user.id) }
+    let(:task) { create(:task, :user_id => user.id) }
 
     before { get "/tasks/#{task.id}", params: {}, headers: headers }
 
@@ -87,7 +87,7 @@ RSpec.describe 'Task API' do
   end
 
   describe 'PUT /tasks/:id' do
-    let!(:task) { create(:task, user_id: user.id) }
+    let!(:task) { create(:task, :user_id => user.id) }
 
     before do
       put "/tasks/#{task.id}", params: { task: task_params }.to_json, headers: headers
@@ -127,7 +127,7 @@ RSpec.describe 'Task API' do
   end
 
   describe 'DELETE /tasks/:id' do
-    let!(:task) { create(:task, user_id: user.id) }
+    let!(:task) { create(:task, :user_id => user.id) }
 
     before do
       delete "/tasks/#{task.id}", params: {}, headers: headers
